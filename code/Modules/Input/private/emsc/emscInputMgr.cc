@@ -414,7 +414,7 @@ emscInputMgr::emscMouseMove(int eventType, const EmscriptenMouseEvent* e, void* 
         self->mouse.onMov(mov);
     }
     else {
-        const glm::vec2 pos((float)e->canvasX, (float)e->canvasY);
+        const glm::vec2 pos((float)e->targetX, (float)e->targetY);
         self->mouse.onPosMov(pos);
     }
     return true;    
@@ -458,8 +458,8 @@ emscInputMgr::emscTouch(int eventType, const EmscriptenTouchEvent* e, void* user
     for (int i = 0; i < event.numTouches; i++) {
         touchEvent::point& curPoint = event.points[i];
         curPoint.identifier = e->touches[i].identifier;
-        curPoint.pos.x = e->touches[i].canvasX;
-        curPoint.pos.y = e->touches[i].canvasY;
+        curPoint.pos.x = e->touches[i].targetX;
+        curPoint.pos.y = e->touches[i].targetY;
         curPoint.isChanged = e->touches[i].isChanged;
     }
     self->onTouchEvent(event);
